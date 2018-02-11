@@ -23,14 +23,12 @@ h1 {
 
 h2 {
     font-size: 32px;
-    border-bottom: 1px dashed grey;
+    border-bottom: 1px solid grey;
     margin-bottom: 8px;
-    text-align: center;
 }
 
 h3 {
     font-size: 20px;
-    text-align: center;
 }
 
 #header {
