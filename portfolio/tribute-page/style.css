@@ -1,3 +1,4 @@
+/* Fonts from Google Fonts - more at https://fonts.google.com */
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
 @import url('https://fonts.googleapis.com/css?family=Merriweather:400,700');
 
@@ -29,9 +30,29 @@ body {
   font-size: 0.6em;
   font-style: italic;
 }
+
 #tribute-info {
   text-align: justify;
 }
+
+.anchors-nav-bar {
+  background-color: hsl(0, 0%, 7%);
+  height: 100%;
+  min-height: 17vh;
+  color: white;
+  list-style-type:none;
+  text-align: center;
+  display: grid;
+}
+
+.anchor {
+  margin: auto;
+  font-style: oblique;
+  color: white;
+  text-decoration: none;
+  padding: 20px;
+}
+
 .parallax {
   background-attachment: fixed;
   background-position: center;
@@ -68,6 +89,10 @@ body {
 }
 
 #intro {
+  background-image: url("imgs/Wall.jpg");
+}
+
+#footer {
   background-image: url("imgs/Wall.jpg");
 }
 

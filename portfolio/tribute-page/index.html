@@ -13,9 +13,13 @@
       
       <section class="parallax" id="intro">
         <header class="dark">
-            <h1 id="title">Pink Floyd Tribute Page</h1>
+          <h1 id="title">Pink Floyd Tribute Page</h1>
         </header>
       </section>
+      
+      <nav class="anchors-nav-bar">
+        <a class="anchor" href="#footer">Click here to scroll down to footer (smoooooooth)</a>
+      </nav>
       
       <section class="text-block">
         <figure id="img-div">
@@ -66,11 +70,37 @@
       </section>
     </section>
     
-    <footer class="parallax" id="intro">
+    <footer class="parallax" id="footer">
       <header class="dark">
         Read <a id="tribute-link" href="https://en.wikipedia.org/wiki/Pink_Floyd" target="_blank">more about Pink Floyd on Wikipedia</a>.
       </header>
     </footer>
+    
+    <!-- scripts -->
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <script>
+      $(function() {
+        $('a[href*="#"]:not([href="#"])').click(function() {
+          if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+            var target = $(this.hash);
+            target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+            if (target.length) {
+              $('html, body').animate({
+                scrollTop: target.offset().top
+              }, 1000);
+              target.focus(); // Setting focus
+              if (target.is(":focus")){ // Checking if the target was focused
+                return false;
+              } else {
+                target.attr('tabindex','-1'); // Adding tabindex for elements not focusable
+                target.focus(); // Setting focus
+              };
+              return false;
+            }
+          }
+        });
+      });
+    </script>
   </body>
   
 </html>
