@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+@import url('https://fonts.googleapis.com/css?family=Merriweather:400,700');
+
+body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 18px;
+  margin: 0;
+  color: #444;
+}
+
+#main {
+  width: 100%;
+  height: 100%;
+}
+
+#title {
+  font-family: "Merriweather", serif;
+  font-size: 35px;
+}
+
+#image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: auto;
+}
+
+#img-caption {
+  font-size: 0.6em;
+  font-style: italic;
+}
+#tribute-info {
+  text-align: justify;
+}
+.parallax {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dark {
+  max-width: 70vw;
+  background-color: hsla(0, 0%, 10%, 0.94);
+  color: #fff;
+  padding: 0.5em;
+  margin: auto;
+}
+
+.light {
+  max-width: 70vw;
+  background-color: hsla(0, 0%, 89%, 0.85);
+  color: #111010;
+  padding: 0.5em;
+  margin: auto;
+}
+
+.text-block {
+  background-color: hsl(0, 0%, 92%);
+  text-align: center;
+  padding: 10px 5%;
+  margin: 5px;
+}
+
+#intro {
+  background-image: url("imgs/Wall.jpg");
+}
+
+#darkside {
+  min-height: 70vh;
+  background-image: url("imgs/TheDardSideofTheMoon.jpg");
+}
+
+#WatersLedEra {
+  min-height: 70vh;
+  background-image: url("imgs/BandTheWall.jpg");
+}
+
+#tribute-link {
+  color: white;
+}
+#tribute-link:link {
+  color: aqua
+}
