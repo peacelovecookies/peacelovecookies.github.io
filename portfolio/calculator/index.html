@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- <script src="jquery.textfill.js" ></script> -->
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div class="calculator">
+      <div class="container">
+        
+        <h4>CALCULATOR</h4>
+        
+        <div class="input-box">
+          <input class="input" id="entry" type="text" placeholder="0" value="" autofocus>
+          <input class="input" id="reminder" type="text" value="" placeholder="reminder box" disabled>
+        </div>
+        
+        <div class="buttons-box">
+          <button class="all-clear" type="button">C</button>
+          <button class="sqrt">√</button>
+          <button class="brackets">( )</button>
+          <button class="operator">+</button>
+
+          <button class="number">7</button>
+          <button class="number">8</button>
+          <button class="number">9</button>
+          <button class="operator">-</button>
+
+          
+
+          <button class="number">4</button>
+          <button class="number">5</button>
+          <button class="number">6</button>
+          <button class="operator">*</button>
+
+          
+
+          <button class="number">1</button>
+          <button class="number">2</button>
+          <button class="number">3</button>
+          <button class="operator">/</button>
+
+
+          <button class="number">0</button>
+          <button class="dec-point">.</button>
+          <button class="equalButton">=</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- scripts -->
+    
+    <!--
+    <script>
+      function update() {
+        var size = parseInt($('#input').val(), 10);
+        if (!isNaN(size)) {
+          $('.dyntextval').html($('#input').val());
+          $('.jtextfill').textfill({debug: true, maxFontPixels: size});
+        }
+      }
+
+      $(function () {
+        $('#maxsize').keyup(update);
+        $('#dyntext').keyup(update);
+        update()
+      });
+    </script>
+    -->
+  </body>
+</html>
