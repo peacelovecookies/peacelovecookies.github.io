@@ -1,44 +1,55 @@
 $(document).ready(() => {
-  var mathEntry = '';
-  var fullOperation = '';
+  let mathEntry = '';
+  let fullOperation = '';
+  const entry = () => $("#entry").val();
+  const reminder = () => $("#reminder").val();
   const operators = new Set([107, 109, 106, 111, 173, 42, 43, 45, 47, '+', '-', '*', '/']);
+  
   const isEmpty = arg => arg.length === 0;
+  
+  const addToEntry = (arg) => {
+    $("#entry").val(entry() + arg);
+  }
+  const addToReminder = arg => $("#reminder").val(reminder() + arg);
+  const replaceEntry = arg => $("#entry").val(arg);
+  const replaceReminder = arg => $("#reminder").val(arg);
   const entryIdentity = () => $("#entry").val($("#entry").val());
+  
+  
   // input numbers
-  $(".number").click(function() {
+  $(".number").click(function(e) {
+    var number = $(this).text();
+    addToEntry(number);
+    mathEntry += number;
+    
     // Prevent incorrect numbers input
     const decRegex = /^0\./;
-    if (decRegex.test($("#entry").val())) {
-      entryIdentity();
-    } else if ($("#entry").val().length > 1) {
-      $("#entry").val($("#entry").val().replace(/^[0]+|^\-[0]+/g, ''));
+    if (entry().length > 1 && !decRegex.test(entry())) {
+      replaceEntry(entry().replace(/^[0]+|^\-[0]+/g, ''));
     }
-    var number = $(this).text();
-    $("#entry").val($("#entry").val() + number);
-    mathEntry += number;
   });
 
   // operators
   $(".operator").click(function() {
     const operator = $(this).text();
-    if (isEmpty($("#entry").val())) {
+    if (isEmpty(entry())) {
       if (operator === '-') {
-        $("#entry").val("-");
+        addToEntry("-");
         mathEntry = '-';
       }
     } else {
-      const addEntry = (operator) => {
+      const newEntry = (operator) => {
         fullOperation += mathEntry + operator;
         mathEntry = '';
-        $("#entry").val('');
+        replaceEntry('');
       };
       
       if (isEmpty(fullOperation)) {
-        $("#reminder").val($("#entry").val() + operator);
-        addEntry(operator);
+        addToReminder(entry() + operator)
+        newEntry(operator);
       } else {
-        $("#reminder").val($("#reminder").val() + $("#entry").val() + operator);
-        addEntry(operator);
+        addToReminder(entry() + operator);
+        newEntry(operator);
       }
     }
   });
@@ -46,44 +57,46 @@ $(document).ready(() => {
   // input sqrt
 
   $(".sqrt").click(function() {
-    if (mathEntry === '') {
+    if (entry() === '') {
       mathEntry = 'Math.sqrt(';
-      $("#entry").val("√(");
+      addToEntry("√(");
     }
   });
 
   // input brackets
   $(".brackets").click(function() {
-    var open = (fullOperation + $("#entry").val()).match(/\(/g);
-    var close = (fullOperation + $("#entry").val()).match(/\)/g);
+    var open = (fullOperation + entry()).match(/\(/g);
+    var close = (fullOperation + entry()).match(/\)/g);
     const length = arr => arr === null ? 0 : arr.length;
-    if (mathEntry != '' && length(open) === length(close)) {
-      $("#entry").val();
+    
+    if (entry() !== '' && length(open) === length(close)) {
+      entryIdentity();
     } else if (length(open) === length(close)) {
       mathEntry += "(";
-      $("#entry").val($("#entry").val() + "(");
+      addToEntry(" (");
     } else {
       mathEntry += ")";
-      $("#entry").val($("#entry").val() + ")");
+      addToEntry(") ");
     }
   });
 
   // equal button
   $(".equalButton").click(function() {
-    const doubleMin = str => str.replace(/\-\-/g, "+");
+    const doubleMinus = str => str.replace(/\-\-/g, "+");
     fullOperation += mathEntry;
-    $("#reminder").val(doubleMin($("#reminder").val() + $("#entry").val()));
-    $("#entry").val(eval(doubleMin(fullOperation)));
-    mathEntry = eval(doubleMin(fullOperation));
+    
+    replaceReminder(doubleMinus(reminder() + entry()));
+    replaceEntry(eval(doubleMinus(fullOperation)));
+    mathEntry = eval(doubleMinus(fullOperation));
     fullOperation = '';
   });
 
   // Bind Enter to "=" button
   $(document).on("keyup", (e) => {
     if (e.which == 13) {
-      fullOperation += $("#entry").val();
-      $("#reminder").val(fullOperation);
-      $("#entry").val(eval(fullOperation));
+      fullOperation += entry();
+      replaceReminder(fullOperation);
+      replaceEntry(eval(fullOperation));
       mathEntry = eval(fullOperation);
       fullOperation = '';
     }
@@ -91,39 +104,51 @@ $(document).ready(() => {
 
   // Prevent double decimal input
   $(".dec-point").click(function(e) {
+    const pointExists = /\d+\.\d+|\.+$|\.\d+/;
     if (isEmpty(mathEntry)) {
-      $("#entry").val('0.');
+      addToEntry('0.');
       mathEntry = '0.';
-    } else if (/\d+\.\d+|\.+$|\.\d+/.test($("#entry").val())) {
-      e.preventDefault();
+    } else if (pointExists.test(entry())) {
+      entryIdentity();
     } else {
-      $("#entry").val($("#entry").val() + '.');
+      addToEntry('.');
       mathEntry += '.';
     }
   });
 
   $("#entry").on("keyup", function(e) {
-    if (e.which == 110 && /^\./.test($("#entry").val())) {
-      $(this).val($(this).val().replace(/^\./, '0.'));
-    } else if (e.which == 110 && /[\+\-\*\/]\./.test($("#entry").val())) {
-      $(this).val($(this).val().replace(/\.$/, '0.'));
-    } else if (e.which == 110 && /\d+\.\d+\.|\.\.$|\.\d+\./.test($("#entry").val())) {
-      $(this).val($(this).val().replace(/\.$/, ''));
+    const isPoint = e.which == 110;
+    
+    const pointFirst = /^\./;
+    const pointLast = /\.$/;
+    const pointAfterOperator = /[\+\-\*\/]\./;
+    const pointExists = /\d+\.\d+\.|\.\.$|\.\d+\./;
+    
+    const replaceThis = (pattern, newVal) => {
+      $(this).val($(this).val().replace(pattern, newVal));
+    };
+    
+    if (isPoint && pointFirst.test(entry())) {
+      replaceThis(pointFirst, '0.');
+    } else if (isPoint && pointAfterOperator.test(entry())) {
+      replaceThis(pointLast, '0.');
+    } else if (isPoint && pointExists.test(entry())) {
+      replaceThis(pointLast, '');
     }
   });
 
   // Prevent alphabetic characters input
-  $("#entry").on("keypress keyup blur", function (event){
+  $("#entry").on("keypress keyup blur", function (e){
     $(this).val($(this).val().replace(/[^0-9\.\+\-\*\/\√\)\(]/g,''));
   });
 
   // AC
   const clear = () => {
-    if (isEmpty($("#entry").val())) {
-      $("#reminder").val('');
+    if (isEmpty(entry())) {
+      replaceReminder('');
       fullOperation = '';
     } else {
-      $("#entry").val('');
+      replaceEntry('');
       mathEntry = '';
     }
   };
@@ -138,5 +163,4 @@ $(document).ready(() => {
       clear();
     }
   });
-
 });
