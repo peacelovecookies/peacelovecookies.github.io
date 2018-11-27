@@ -26,6 +26,7 @@ html {
         inset 0 0 0 3px #EFEFEF,
         inset 0 0 10px black,
         0 0 10px rgba(0,0,0,0.2);
+      background-color: #d5d2d2b3;
     }
     .clock-face {
       position: relative;
@@ -79,7 +80,7 @@ html {
     }
     .six-point {
       left: 14rem;
-      top: 28rem;
+      top: 28.7rem;
     }
     .nine-point {
       left: 0rem;
