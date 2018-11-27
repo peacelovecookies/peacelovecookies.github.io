@@ -43,5 +43,46 @@ html {
       transform: rotate(90deg);
       transition: cubic-bezier(.1, 3, .5, 1.5) 0.06s;
     }
-    
+    .min-hand {
+      height: 7px;
+      width: 40%;
+      left: 10%;
+    }
+    .hour-hand {
+      height: 8px;
+      width: 35%;
+      left: 15%;
+    }
+    .center {
+      position: absolute;
+      width: 1.5rem;
+      height: 1.5rem;
+      background-color: black;
+      border-radius: 60%;
+      left: 14.5rem;
+      top: 14.7rem;
+    }
+    .number {
+      position: absolute;
+      width: 2rem;
+      height: 2rem;
+      background-color: black;
+      border-radius: 60%;
+    }
+    .zero-point {
+      left: 14rem;
+      top: 0;
+    }
+    .three-point {
+      left: 28rem;
+      top: 14rem;
+    }
+    .six-point {
+      left: 14rem;
+      top: 28rem;
+    }
+    .nine-point {
+      left: 0rem;
+      top: 14rem;
+    }
 
