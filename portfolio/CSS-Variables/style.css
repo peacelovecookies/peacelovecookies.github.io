@@ -1,10 +1,12 @@
 :root {
   --base: #ffc600;
-  --spacing: 10px;
-  --blur: 10px;
+  --spacing: 5px;
+  --blur: 25px;
 }
 
 img {
+  max-width: 100%;
+  height: auto;
   padding: var(--spacing);
   background: var(--base);
   filter: blur(var(--blur));
