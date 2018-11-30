@@ -6,7 +6,7 @@
     <link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
     <link rel='stylesheet' href='style.css'>
   </head>
-  
+
   <body>   
     <div class="panels">
       <div class="panel panel1">
@@ -37,6 +37,20 @@
     </div>
 
     <script>
+      const panels = document.querySelectorAll('.panel');
+
+      function toggleOpen() {
+        this.classList.toggle('open');
+      }
+
+      function toggleOpenActive(e) {
+        if (e.propertyName.includes('flex')) {
+          this.classList.toggle('open-active');
+        }
+      }
+
+      panels.forEach(panel => panel.addEventListener('click', toggleOpen));
+      panels.forEach(panel => panel.addEventListener('transitionend', toggleOpenActive));
     </script>
 
 
